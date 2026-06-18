@@ -1,0 +1,208 @@
+{
+  "venues": [
+    {
+      "id": "venue-001",
+      "name": "Cape Town CBD Branch",
+      "address": "12 Long Street, Cape Town, 8001"
+    },
+    {
+      "id": "venue-002",
+      "name": "Sandton City Branch",
+      "address": "83 Rivonia Road, Sandton, 2196"
+    },
+    {
+      "id": "venue-003",
+      "name": "Durban Waterfront Branch",
+      "address": "1 Yacht Mole, Durban, 4001"
+    }
+  ],
+  "access_points": [
+    {
+      "id": "ap-001",
+      "venue_id": "venue-001",
+      "name": "AP-Floor1-CT",
+      "mac_address": "AA:BB:CC:DD:EE:01",
+      "status": "online"
+    },
+    {
+      "id": "ap-002",
+      "venue_id": "venue-001",
+      "name": "AP-Floor2-CT",
+      "mac_address": "AA:BB:CC:DD:EE:02",
+      "status": "online"
+    },
+    {
+      "id": "ap-003",
+      "venue_id": "venue-002",
+      "name": "AP-Main-SAN",
+      "mac_address": "AA:BB:CC:DD:EE:03",
+      "status": "online"
+    },
+    {
+      "id": "ap-004",
+      "venue_id": "venue-002",
+      "name": "AP-Lounge-SAN",
+      "mac_address": "AA:BB:CC:DD:EE:04",
+      "status": "offline"
+    },
+    {
+      "id": "ap-005",
+      "venue_id": "venue-003",
+      "name": "AP-Entrance-DBN",
+      "mac_address": "AA:BB:CC:DD:EE:05",
+      "status": "online"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "sess-001",
+      "venue_id": "venue-001",
+      "access_point_id": "ap-001",
+      "device_mac": "11:22:33:44:55:01",
+      "connected_at": "2025-06-01T08:00:00",
+      "disconnected_at": "2025-06-01T09:00:00",
+      "duration_seconds": 3600,
+      "data_usage_mb": 120.5
+    },
+    {
+      "id": "sess-002",
+      "venue_id": "venue-001",
+      "access_point_id": "ap-001",
+      "device_mac": "11:22:33:44:55:02",
+      "connected_at": "2025-06-01T09:00:00",
+      "disconnected_at": "2025-06-01T09:30:00",
+      "duration_seconds": 1800,
+      "data_usage_mb": 45.2
+    },
+    {
+      "id": "sess-003",
+      "venue_id": "venue-001",
+      "access_point_id": "ap-002",
+      "device_mac": "11:22:33:44:55:03",
+      "connected_at": "2025-06-01T10:00:00",
+      "disconnected_at": "2025-06-01T12:00:00",
+      "duration_seconds": 7200,
+      "data_usage_mb": 300.0
+    },
+    {
+      "id": "sess-004",
+      "venue_id": "venue-002",
+      "access_point_id": "ap-003",
+      "device_mac": "11:22:33:44:55:04",
+      "connected_at": "2025-06-01T08:00:00",
+      "disconnected_at": "2025-06-01T08:15:00",
+      "duration_seconds": 900,
+      "data_usage_mb": 20.1
+    },
+    {
+      "id": "sess-005",
+      "venue_id": "venue-002",
+      "access_point_id": "ap-003",
+      "device_mac": "11:22:33:44:55:05",
+      "connected_at": "2025-06-01T11:00:00",
+      "disconnected_at": "2025-06-01T12:30:00",
+      "duration_seconds": 5400,
+      "data_usage_mb": 210.8
+    },
+    {
+      "id": "sess-006",
+      "venue_id": "venue-002",
+      "access_point_id": "ap-004",
+      "device_mac": "11:22:33:44:55:06",
+      "connected_at": "2025-06-01T09:00:00",
+      "disconnected_at": "2025-06-01T09:10:00",
+      "duration_seconds": 600,
+      "data_usage_mb": 10.0
+    },
+    {
+      "id": "sess-007",
+      "venue_id": "venue-003",
+      "access_point_id": "ap-005",
+      "device_mac": "11:22:33:44:55:07",
+      "connected_at": "2025-06-01T12:00:00",
+      "disconnected_at": "2025-06-01T12:45:00",
+      "duration_seconds": 2700,
+      "data_usage_mb": 88.4
+    },
+    {
+      "id": "sess-008",
+      "venue_id": "venue-003",
+      "access_point_id": "ap-005",
+      "device_mac": "11:22:33:44:55:08",
+      "connected_at": "2025-06-01T13:00:00",
+      "disconnected_at": null,
+      "duration_seconds": null,
+      "data_usage_mb": null
+    },
+    {
+      "id": "sess-009",
+      "venue_id": "venue-001",
+      "access_point_id": "ap-001",
+      "device_mac": "11:22:33:44:55:09",
+      "connected_at": "2025-06-01T14:00:00",
+      "disconnected_at": "2025-06-01T15:00:00",
+      "duration_seconds": 3600,
+      "data_usage_mb": 95.0
+    },
+    {
+      "id": "sess-010",
+      "venue_id": "venue-001",
+      "access_point_id": "ap-002",
+      "device_mac": "11:22:33:44:55:10",
+      "connected_at": "2025-06-01T15:00:00",
+      "disconnected_at": "2025-06-01T16:00:00",
+      "duration_seconds": 3600,
+      "data_usage_mb": 110.0
+    },
+    {
+      "id": "sess-011",
+      "venue_id": "venue-002",
+      "access_point_id": "ap-003",
+      "device_mac": "11:22:33:44:55:11",
+      "connected_at": "2025-06-01T16:00:00",
+      "disconnected_at": "2025-06-01T17:00:00",
+      "duration_seconds": 3600,
+      "data_usage_mb": 150.0
+    },
+    {
+      "id": "sess-012",
+      "venue_id": "venue-002",
+      "access_point_id": "ap-004",
+      "device_mac": "11:22:33:44:55:12",
+      "connected_at": "2025-06-01T17:00:00",
+      "disconnected_at": "2025-06-01T17:30:00",
+      "duration_seconds": 1800,
+      "data_usage_mb": 80.0
+    },
+    {
+      "id": "sess-013",
+      "venue_id": "venue-003",
+      "access_point_id": "ap-005",
+      "device_mac": "11:22:33:44:55:13",
+      "connected_at": "2025-06-01T18:00:00",
+      "disconnected_at": "2025-06-01T19:00:00",
+      "duration_seconds": 3600,
+      "data_usage_mb": 120.0
+    },
+    {
+      "id": "sess-014",
+      "venue_id": "venue-003",
+      "access_point_id": "ap-005",
+      "device_mac": "11:22:33:44:55:14",
+      "connected_at": "2025-06-01T19:00:00",
+      "disconnected_at": "2025-06-01T19:45:00",
+      "duration_seconds": 2700,
+      "data_usage_mb": 75.0
+    },
+    {
+      "id": "sess-015",
+      "venue_id": "venue-003",
+      "access_point_id": "ap-005",
+      "device_mac": "11:22:33:44:55:15",
+      "connected_at": "2025-06-01T20:00:00",
+      "disconnected_at": null,
+      "duration_seconds": null,
+      "data_usage_mb": null
+    }
+  ]
+}
