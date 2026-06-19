@@ -17,4 +17,4 @@ services:
           name: wifi-controller-db
           property: connectionString
       - key: FRONTEND_URLS
-        value: https://your-vercel-app.vercel.app,http://localhost:5173,http://127.0.0.1:5173
+        value: https://wifi-controller.vercel.app,http://localhost:5173,http://127.0.0.1:5173
