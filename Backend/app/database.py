@@ -7,10 +7,11 @@ load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./wifi_controller.db")
 
-# connect_args={"check_same_thread": False} is needed only for SQLite.
-engine = create_engine(
-    DATABASE_URL, connect_args={"check_same_thread": False}
-)
+# connect_args={"check_same_thread": False} is only valid for SQLite —
+# Postgres (and other DBs) will error if we pass it, so make it conditional.
+connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
+
+engine = create_engine(DATABASE_URL, connect_args=connect_args)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

@@ -23,7 +23,7 @@ graph TD
     end
 
     subgraph Storage & Simulators
-        DB[(SQLite Database)]
+        DB[(SQLite - local / PostgreSQL - production)]
         Mock_JSON[(mock_controller/data.json)]
     end
 
@@ -132,22 +132,63 @@ The frontend requires **Node.js (v18+)** and **npm**.
 
 ---
 
-## Database Trade-off: SQLite vs PostgreSQL
+## Database Strategy: SQLite (local) → PostgreSQL (production)
 
-We have chosen to use **SQLite** as the primary database for local development.
+The project uses **SQLite** for local development and **PostgreSQL** in production (hosted on Render).
 
-### Why SQLite?
-1. **Zero Configuration**: SQLite does not require spinning up external docker containers or managing database server processes, saving significant development and setup time.
-2. **Portability**: The entire database is contained within a single `wifi_controller.db` file, making it exceptionally easy to share, test, and run locally out of the box.
-3. **ORM Abstraction**: We utilize SQLAlchemy as our ORM. This means our schema—modeling `Venues`, `AccessPoints`, `Sessions`, and `SyncLogs`—is entirely database-agnostic.
+### Why SQLite locally?
+1. **Zero Configuration**: No docker containers or database server processes needed — just run the app.
+2. **Portability**: The entire database is a single `wifi_controller.db` file, easy to share and reset.
+3. **ORM Abstraction**: SQLAlchemy makes the schema fully database-agnostic — switching databases only requires changing `DATABASE_URL`.
 
-### Trade-offs
-While SQLite is excellent for rapid prototyping and local development, it has limitations in a production environment:
-* **Concurrency**: SQLite handles concurrent reads well but locks the entire database file during writes. In a high-traffic production scenario with many frequent syncs or concurrent users, PostgreSQL's row-level locking would be necessary.
-* **Scale**: PostgreSQL is built to handle massive datasets natively, whereas SQLite's performance can degrade on extremely large database files.
-* **Advanced Types**: PostgreSQL supports advanced indexing and data types (like native JSON/JSONB and array types) that SQLite does not fully support.
+### Why PostgreSQL in production?
+* **Persistence**: Data survives deploys and restarts, unlike an ephemeral filesystem.
+* **Concurrency**: Row-level locking handles concurrent syncs and API reads far better than SQLite's file-level locking.
+* **Scale**: Built for large datasets and high-throughput workloads.
 
-*Note: Because we use SQLAlchemy, transitioning to PostgreSQL in the future is as simple as updating the `DATABASE_URL` in the `.env` file to a `postgresql://` connection string and installing `psycopg2`. No schema code changes are required.*
+The `DATABASE_URL` environment variable controls which database is used. Render injects the PostgreSQL connection string automatically via `render.yaml`.
+
+---
+
+## Deployment
+
+The app is deployed with the **Frontend on Vercel** and the **Backend + PostgreSQL on Render**.
+
+### Step 1 — Deploy Backend to Render
+
+1. Push this repo to GitHub (if not already done).
+2. Go to [render.com](https://render.com) → **New** → **Blueprint**.
+3. Connect your GitHub repo — Render will detect `render.yaml` and automatically create:
+   - A **Web Service** (`wifi-controller-backend`) running the FastAPI app
+   - A **PostgreSQL database** (`wifi-controller-db`) linked to it via `DATABASE_URL`
+4. Click **Apply** and wait for the build to finish.
+5. Copy the public URL (e.g. `https://wifi-controller-backend.onrender.com`).
+
+### Step 2 — Deploy Frontend to Vercel
+
+1. Go to [vercel.com](https://vercel.com) → **Add New Project** → import your GitHub repo.
+2. Set the **Root Directory** to `Frontend`.
+3. Add an **Environment Variable** in Vercel:
+   ```
+   VITE_API_BASE = https://wifi-controller-backend.onrender.com
+   ```
+4. Click **Deploy**. Vercel detects Vite automatically — no extra config needed.
+5. Copy the Vercel URL (e.g. `https://wifi-controller.vercel.app`).
+
+### Step 3 — Update CORS on Render
+
+1. In the Render dashboard → `wifi-controller-backend` → **Environment**.
+2. Update `FRONTEND_URLS` to include your Vercel URL:
+   ```
+   https://wifi-controller.vercel.app,http://localhost:5173,http://127.0.0.1:5173
+   ```
+3. Render will auto-redeploy.
+
+### Step 4 — Populate the Database
+
+Trigger a sync from the live frontend — the first sync will populate the PostgreSQL database fresh.
+
+> **Note**: The free tier of Render's web service spins down after 15 minutes of inactivity. The first request after a cold start may take ~30 seconds.
 
 ---
 
