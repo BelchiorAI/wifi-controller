@@ -23,18 +23,18 @@ echo.
 echo ^> Setting up Backend...
 cd Backend
 
-if not exist venv (
+if not exist .venv (
     echo [INFO] Creating virtual environment...
-    python -m venv venv
-    call .\venv\Scripts\activate.bat
+    python -m venv .venv
+    call .\.venv\Scripts\activate
     echo [INFO] Installing python dependencies...
     pip install -r requirements.txt
 ) else (
-    call .\venv\Scripts\activate.bat
+    call .\.venv\Scripts\activate
 )
 
 echo ^> Starting Backend server...
-start "Backend" cmd /k "call .\venv\Scripts\activate.bat && uvicorn app.main:app --reload"
+start "Backend" cmd /k "call .\.venv\Scripts\activate && uvicorn app.main:app --reload"
 echo [OK] Backend running at http://127.0.0.1:8000
 
 :: ── Frontend ─────────────────────────────────

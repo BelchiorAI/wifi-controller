@@ -25,14 +25,14 @@ echo ""
 echo "Setting up Backend..."
 cd Backend
 
-if [ ! -d "venv" ]; then
+if [ ! -d ".venv" ]; then
     echo "Virtual environment not found. Creating one..."
-    $PYTHON_CMD -m venv venv
-    source venv/bin/activate
+    $PYTHON_CMD -m venv .venv
+    source .venv/bin/activate
     echo "Installing Backend dependencies..."
     pip install -r requirements.txt
 else
-    source venv/bin/activate
+    source .venv/bin/activate
 fi
 
 echo "Starting Backend server..."
